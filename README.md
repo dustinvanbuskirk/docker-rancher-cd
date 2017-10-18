@@ -23,6 +23,7 @@ GITHUB_TOKEN - Token Generated on GitHub
 If you wish to pull from another repository you may need to modify the git clone command.
 
 Required Values:
+
 `RANCHER_URL` - Rancher URL `https://rancher.mydomain.com`
 
 `RANCHER_ACCESS_KEY` - Rancher API Access Key for Rancher User or Rancher Environment
