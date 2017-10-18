@@ -1,4 +1,4 @@
-# docker-rancher-cd
+# docker-rancher-cd [![Codefresh build status]( https://g.codefresh.io/api/badges/build?repoOwner=SC-TechDev&repoName=docker-rancher-cd&branch=master&pipelineName=docker-rancher-cd&accountName=sctechdevservice&type=cf-1)]( https://g.codefresh.io/repositories/SC-TechDev/docker-rancher-cd/builds?filter=trigger:build;branch:master;service:59e6adc0b4ab380001f0a088~docker-rancher-cd)
 
 ## Script Library
 
