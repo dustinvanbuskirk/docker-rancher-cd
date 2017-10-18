@@ -24,10 +24,15 @@ If you wish to pull from another repository you may need to modify the git clone
 
 Required Values:
 `RANCHER_URL` - Rancher URL `https://rancher.mydomain.com`
+
 `RANCHER_ACCESS_KEY` - Rancher API Access Key for Rancher User or Rancher Environment
+
 `RANCHER_SECRET_KEY` - Rancher API Secret Key that corresponds with the RANCHER_ACCESS_KEY
+
 `RANCHER_CATALOG_TEMPLATE_NAME` - Name of the folder holding the Catalog template for your Stack
+
 `RANCHER_STACK_NAME` - Stack Name to run Upgrade against 
+
 `RANCHER_SERVICE_NAME` - Serivce Name to Upgrade
 
 This currently confirms upgrades automatically and uses Dockr image tag oflatest but later versions will allow for some API or HTTP checked before confirmation and specification of the image tag from your codefresh.yml.
