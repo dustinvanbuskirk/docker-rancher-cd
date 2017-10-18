@@ -61,9 +61,9 @@ codefresh.yml
         only:
           - master
 
-  upgrade_web:
-    title: Upgrade Rancher Instances
-    image: sctechdev/hawthorne-utils:latest
+  upgrade_service:
+    title: Upgrade Rancher Service
+    image: sctechdev/docker-rancher-cd:latest
     commands:
       - /usr/bin/python3 /scripts/rancher-compose.py -n "${{RANCHER_CATALOG_TEMPLATE_NAME}}" -o "--url ${{RANCHER_URL}} --access-key ${{RANCHER_ACCESS_KEY}} --secret-key ${{RANCHER_SECRET_KEY}} --project-name ${{RANCHER_STACK_NAME}} up" -c "${{RANCHER_SERVICE_NAME}} --upgrade --confirm-upgrade --force-upgrade --pull -d"
     when:
