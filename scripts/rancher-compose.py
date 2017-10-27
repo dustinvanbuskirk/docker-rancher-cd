@@ -7,12 +7,12 @@ import json
 import yaml
 
 def main(argv):
+
   def set_image(service, image):
       with open(working_directory + 'docker-compose.yaml') as f:
         doc = yaml.load(f)
 
       doc['services'][service]['image'] = image
-
       with open(working_directory + 'docker-compose.yaml', 'w') as f:
         yaml.dump(doc, f)
 
@@ -23,9 +23,10 @@ def main(argv):
   rancher_catalog_template_directory = '/codefresh/volume/rancher-catalog/templates'
   rancher_catalog_template_name = None
   rancher_catalog_template_version = None
-  image = None
+
+
   try:
-    opts, args = getopt.getopt(argv,"o:c:a:t:n:v:s:i:",["help","rancher_compose_options=","rancher_compose_command=","rancher_compose_args=","rancher_catalog_template_directory=","rancher_catalog_template_name=","rancher_catalog_template_version","service","image"])
+    opts, args = getopt.getopt(argv,"o:c:a:t:n:v:i:s:",["help","rancher_compose_options=","rancher_compose_command=","rancher_compose_args=","rancher_catalog_template_directory=","rancher_catalog_template_name=","rancher_catalog_template_version","image","service"])
   except getopt.GetoptError:
     print('Unrecognized Argument, See Usage Below.')
     print('rancher-compose.py -n "<CATALOG_TEMPLATE_NAME>" -o "<OPTIONS>" -c "<COMMAND>" -a "<args>"')
