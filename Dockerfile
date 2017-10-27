@@ -12,6 +12,7 @@ RUN apk add --no-cache --virtual .fetch-deps  \
     curl -L -O https://github.com/rancher/rancher-compose/releases/download/v${RANCHER_COMPOSE_VERSION}/rancher-compose-linux-amd64-v${RANCHER_COMPOSE_VERSION}.tar.gz &&  \
     tar xvf rancher-compose-linux-amd64-v${RANCHER_COMPOSE_VERSION}.tar.gz -C /usr/local/bin &&  \
     mv /usr/local/bin/rancher-compose-v${RANCHER_COMPOSE_VERSION}/rancher-compose /usr/local/bin &&  \
+    pip install pyyaml && \
     apk del .fetch-deps
 
 COPY scripts /scripts
@@ -19,5 +20,5 @@ RUN chmod +x /scripts
 
 WORKDIR /scripts
 
-ENTRYPOINT ["/usr/bin/python3"]
+ENTRYPOINT ["/usr/local/bin/python3"]
 CMD [""]
