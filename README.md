@@ -9,7 +9,7 @@ Allows you to use Rancher Compose https://github.com/rancher/rancher-compose for
 Example run from rancher-catalog local directory.
 
 ```console
-docker run -v `pwd`:/rancher-catalog sctechdev/hawthorne-utils:test rancher-compose.py -o options -a  args -t /rancher-catalog/templates/ -n presenceweb
+docker run -v `pwd`:/rancher-catalog organisation/reponame:latest rancher-compose.py -o options -a  args -t /rancher-catalog/templates/ -n name -i imagename -s servicename
 ```
 
 Codefresh Build Step to execute Rancher Service Upgrade
@@ -55,7 +55,7 @@ codefresh.yml
     working_directory: ${{main_clone}}
     commands:
       - bash -c "rm -rf /codefresh/volume/rancher-catalog/"
-      - bash -c "git clone https://${{GITHUB_TOKEN}}:x-oauth-basic@github.com/SC-TechDev/rancher-catalog.git /codefresh/volume/rancher-catalog"
+      - bash -c "git clone https://${{GITHUB_TOKEN}}:x-oauth-basic@github.com/org/rancher-catalog.git /codefresh/volume/rancher-catalog"
     when:
       branch:
         only:
@@ -65,7 +65,7 @@ codefresh.yml
     title: Upgrade Rancher Service
     image: sctechdev/docker-rancher-cd:latest
     commands:
-      - /usr/bin/python3 /scripts/rancher-compose.py -n "${{RANCHER_CATALOG_TEMPLATE_NAME}}" -o "--url ${{RANCHER_URL}} --access-key ${{RANCHER_ACCESS_KEY}} --secret-key ${{RANCHER_SECRET_KEY}} --project-name ${{RANCHER_STACK_NAME}} up" -c "${{RANCHER_SERVICE_NAME}} --upgrade --confirm-upgrade --force-upgrade --pull -d"
+      - /usr/local/bin/python3 /scripts/rancher-compose.py -i "{{REPO_NAME}}::${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}" -s "${{RANCHER_SERVICE_NAME}}" -n "${{RANCHER_CATALOG_TEMPLATE_NAME}}" -o "--url ${{RANCHER_URL}} --access-key ${{RANCHER_ACCESS_KEY}} --secret-key ${{RANCHER_SECRET_KEY}} --project-name ${{RANCHER_STACK_NAME}} up" -c "${{RANCHER_SERVICE_NAME}} --upgrade --confirm-upgrade --force-upgrade --pull -d"
     when:
       branch:
         only:
@@ -79,7 +79,7 @@ Allows you to use Rancher CLI http://docs.rancher.com/rancher/v1.2/en/cli/
 
 Linux:
 ```console
-$ docker run -it --rm --net host sctechdev/hawthorne-utils:latest rancher-cli.py -o "<OPTIONS>" -c "<COMMAND>" -a "<args>"
+$ docker run -it --rm --net host organisation/reponame:latest rancher-cli.py -o "<OPTIONS>" -c "<COMMAND>" -a "<args>"
 ```
 
 Pull Requests are Welcome!
