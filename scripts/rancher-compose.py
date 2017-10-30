@@ -4,16 +4,20 @@ import os
 import subprocess
 import time
 import json
+import yaml
 
 def main(argv):
-  def set_image(service, image):
-      with open(working_directory + 'docker-compose.yaml') as f:
+
+  def set_image(service, image, working_directory):
+      print(service)
+      print(image)
+      print(os.listdir(working_directory))
+      with open(working_directory + 'docker-compose.yml') as f:
         doc = yaml.load(f)
 
-  doc['services'][service]['image'] = image
-
-  with open(working_directory + 'docker-compose.yaml', 'w') as f:
-      yaml.dump(doc, f)
+      doc['services'][service]['image'] = image
+      with open(working_directory + 'docker-compose.yml', 'w') as f:
+        yaml.dump(doc, f)
 
 
   rancher_compose_options = ''
@@ -22,8 +26,9 @@ def main(argv):
   rancher_catalog_template_directory = '/codefresh/volume/rancher-catalog/templates'
   rancher_catalog_template_name = None
   rancher_catalog_template_version = None
+
   try:
-    opts, args = getopt.getopt(argv,"o:c:a:t:n:v:",["help","rancher_compose_options=","rancher_compose_command=","rancher_compose_args=","rancher_catalog_template_directory=","rancher_catalog_template_name=","rancher_catalog_template_version"])
+    opts, args = getopt.getopt(argv,"o:c:a:t:n:v:i:s:",["help","rancher_compose_options=","rancher_compose_command=","rancher_compose_args=","rancher_catalog_template_directory=","rancher_catalog_template_name=","rancher_catalog_template_version","image","service"])
   except getopt.GetoptError:
     print('Unrecognized Argument, See Usage Below.')
     print('rancher-compose.py -n "<CATALOG_TEMPLATE_NAME>" -o "<OPTIONS>" -c "<COMMAND>" -a "<args>"')
@@ -72,7 +77,7 @@ def main(argv):
 
   print('Using Catalog Entry: ' + working_directory)
 
-  set_image(service, image)
+  set_image(service, image, working_directory)
 
   command = ['rancher-compose ' + rancher_compose_options + ' ' + rancher_compose_command + ' ' + rancher_compose_args]
   proc = subprocess.Popen(command, shell=True, cwd=working_directory)
