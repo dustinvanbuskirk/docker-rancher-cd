@@ -65,7 +65,7 @@ codefresh.yml
     title: Upgrade Rancher Service
     image: sctechdev/docker-rancher-cd:latest
     commands:
-      - /usr/local/bin/python3 /scripts/rancher-compose.py -i "{{REPO_NAME}}::${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}" -s "${{RANCHER_SERVICE_NAME}}" -n "${{RANCHER_CATALOG_TEMPLATE_NAME}}" -o "--url ${{RANCHER_URL}} --access-key ${{RANCHER_ACCESS_KEY}} --secret-key ${{RANCHER_SECRET_KEY}} --project-name ${{RANCHER_STACK_NAME}} up" -c "${{RANCHER_SERVICE_NAME}} --upgrade --confirm-upgrade --force-upgrade --pull -d"
+      - /usr/local/bin/python3 /scripts/rancher-compose.py -i "${{REPO_NAME}}:${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}" -s "${{RANCHER_SERVICE_NAME}}" -n "${{RANCHER_CATALOG_TEMPLATE_NAME}}" -o "--url ${{RANCHER_URL}} --access-key ${{RANCHER_ACCESS_KEY}} --secret-key ${{RANCHER_SECRET_KEY}} --project-name ${{RANCHER_STACK_NAME}} up" -c "${{RANCHER_SERVICE_NAME}} --upgrade --confirm-upgrade --force-upgrade --pull -d"
     when:
       branch:
         only:
