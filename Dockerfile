@@ -1,7 +1,7 @@
 FROM python:alpine3.6
 
-ENV RANCHER_VERSION=0.5.1
-ENV RANCHER_COMPOSE_VERSION=0.12.4
+ENV RANCHER_VERSION=0.6.3
+ENV RANCHER_COMPOSE_VERSION=0.12.5
 
 RUN apk add --no-cache --virtual .fetch-deps  \
         curl &&  \
