@@ -33,8 +33,11 @@ def main(argv):
             rancher_args = arg
 
     command = ['rancher ' + rancher_options + ' ' + rancher_command + ' ' + rancher_args]
-
-    exitcode = subprocess.Popen(command, shell=True, stdout=sys.stdout, stderr=sys.stderr).wait()
+    try:
+        exitcode = subprocess.Popen(command, shell=True, stdout=sys.stdout, stderr=sys.stderr).wait(timeout=10*60)  # Timeout after 10 minutes
+    except subprocess.TimeoutExpired:
+        print("Timeout during upgrade")
+        exitcode = 1
 
     exit(exitcode)
 

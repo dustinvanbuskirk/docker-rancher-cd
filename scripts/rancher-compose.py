@@ -79,7 +79,11 @@ def main(argv):
     set_image(service, image, working_directory)
 
     command = ['rancher-compose ' + rancher_compose_options + ' ' + rancher_compose_command + ' ' + rancher_compose_args]
-    exitcode = subprocess.Popen(command, shell=True, cwd=working_directory, stdout=sys.stdout, stderr=sys.stderr).wait()
+    try:
+        exitcode = subprocess.Popen(command, shell=True, cwd=working_directory, stdout=sys.stdout, stderr=sys.stderr).wait(timeout=10*60)  # Timeout after 10 minutes
+    except subprocess.TimeoutExpired:
+        print("Timeout during upgrade")
+        exitcode = 1
 
     exit(exitcode)
 
